@@ -28,7 +28,7 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div>
-          <p className="eyebrow">Car Rental Booking Platform</p>
+          <p className="eyebrow">Car Rental Booking</p>
           <h1>HCL Car Rentals</h1>
         </div>
         <div className="topbar-actions">
