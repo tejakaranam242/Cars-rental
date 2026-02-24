@@ -1,0 +1,230 @@
+{
+  "info": {
+    "name": "Car Rental API",
+    "_postman_id": "car-rental-collection",
+    "description": "Collection for local testing of the Car Rental backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "adminUserId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Admin (Seeded)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@demo.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cars",
+      "item": [
+        {
+          "name": "Get All Cars",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cars"]
+            }
+          }
+        },
+        {
+          "name": "Get Available Cars By Date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cars?startDate=2026-03-01&endDate=2026-03-05",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cars"],
+              "query": [
+                { "key": "startDate", "value": "2026-03-01" },
+                { "key": "endDate", "value": "2026-03-05" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-USER-ID", "value": "{{adminUserId}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"make\": \"Toyota\",\n  \"model\": \"Camry\",\n  \"year\": 2022,\n  \"color\": \"White\",\n  \"rentalPricePerDay\": 49.99\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cars"]
+            }
+          }
+        },
+        {
+          "name": "Update Car",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-USER-ID", "value": "{{adminUserId}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"make\": \"Toyota\",\n  \"model\": \"Camry\",\n  \"year\": 2023,\n  \"color\": \"Black\",\n  \"rentalPricePerDay\": 59.99\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cars/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cars", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Car",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "X-USER-ID", "value": "{{adminUserId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cars/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cars", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 2,\n  \"carId\": 1,\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-05\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Get Bookings By User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/user/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", "user", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Get All Bookings (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-USER-ID", "value": "{{adminUserId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Update Booking Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CANCELLED\",\n  \"actorUserId\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", ":id"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
