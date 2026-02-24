@@ -35,7 +35,7 @@ export default function App() {
           {user ? (
             <>
               <span className="chip">{user.name} ({user.role})</span>
-              <button className="secondary-btn" onClick={handleLogout}>Logout</button>
+              <button className="secondary-btn" onClick={handleLogout}>Logout!!!!</button>
             </>
           ) : (
             <Auth onLogin={handleLogin} />
